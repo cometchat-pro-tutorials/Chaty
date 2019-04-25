@@ -1,6 +1,7 @@
 package com.wajahatkarim3.chaty
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amulyakhare.textdrawable.TextDrawable
@@ -59,7 +61,14 @@ class ContactsActivity : AppCompatActivity() {
         override fun getItemCount(): Int = contactsList.size
 
         override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-            holder.bindItem(contactsList[position])
+            var user = contactsList[position]
+            holder.bindItem(user) {
+                var intent = Intent(context, ChatActivity::class.java)
+                intent.putExtra("name", user.name)
+                intent.putExtra("status", user.status)
+                intent.putExtra("photo", user.photoUrl)
+                context.startActivity(intent)
+            }
         }
 
         inner class ContactViewHolder : RecyclerView.ViewHolder
@@ -67,16 +76,23 @@ class ContactsActivity : AppCompatActivity() {
             var txtUsername: AppCompatTextView
             var txtStatus: AppCompatTextView
             var imgContactPhoto: AppCompatImageView
+            var userItemClickCallback: (() -> Unit)? = null
 
             constructor(itemView: View) : super(itemView)
             {
                 txtUsername = itemView.findViewById(R.id.txtUsername)
                 txtStatus = itemView.findViewById(R.id.txtStatus)
                 imgContactPhoto = itemView.findViewById(R.id.imgContactPhoto)
+
+                var cardRootLayout = itemView.findViewById<ConstraintLayout>(R.id.cardRootLayout)
+                cardRootLayout.setOnClickListener {
+                    userItemClickCallback?.invoke()
+                }
             }
 
-            fun bindItem(userModel: UserModel)
+            fun bindItem(userModel: UserModel, callback: () -> Unit)
             {
+                userItemClickCallback = callback
                 txtUsername.text = userModel.name
                 txtStatus.text = userModel.status
                 setAvatarImage(userModel.name[0].toString())
@@ -96,4 +112,5 @@ class ContactsActivity : AppCompatActivity() {
             }
         }
     }
+
 }

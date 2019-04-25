@@ -8,6 +8,7 @@
     android:layout_marginBottom="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardRootLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"

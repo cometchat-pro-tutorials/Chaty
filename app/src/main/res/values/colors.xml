@@ -3,6 +3,7 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#222322</color>
     <color name="colorAccent">#c84241</color>
+    <color name="colorAccentLight">#c84241</color>
     <color name="textColorPrimary">#222322</color>
     <color name="textColorSecondary">#FFFFFF</color>
     <color name="colorControlActivated">#c84241</color>
@@ -10,4 +11,5 @@
     <color name="colorWindowBackground">#eeeeee</color>
     <color name="colorOnline">#149214</color>
     <color name="colorOffline">#7E7D7D</color>
+    <color name="colorBorder">#4D838282</color>
 </resources>

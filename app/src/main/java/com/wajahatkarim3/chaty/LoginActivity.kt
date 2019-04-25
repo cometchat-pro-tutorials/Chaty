@@ -40,6 +40,7 @@ class LoginActivity : AppCompatActivity()
             // Go to Contacts screen
             var intent = Intent(this, ContactsActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

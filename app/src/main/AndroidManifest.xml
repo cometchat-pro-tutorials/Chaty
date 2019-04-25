@@ -11,17 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chaty">
+        <activity android:name=".ChatActivity"></activity>
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.Chaty.NoToolbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ContactsActivity"
-            android:label="Contacts"></activity>
+            android:label="Contacts" />
     </application>
 
 </manifest>
