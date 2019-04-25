@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgContactPhoto"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtUsername"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/full_names"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/imgContactPhoto"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/txtStatus"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Online"
+            app:layout_constraintTop_toBottomOf="@id/txtUsername"
+            app:layout_constraintLeft_toRightOf="@id/imgContactPhoto"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/imgContactPhoto"
+            android:textSize="17sp"
+            android:layout_marginLeft="20dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

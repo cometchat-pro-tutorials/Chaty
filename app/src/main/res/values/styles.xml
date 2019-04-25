@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="Theme.Chaty" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Chaty" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -10,6 +10,11 @@
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+    
+    <style name="Theme.Chaty.NoToolbar" parent="Theme.Chaty">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Widget.Chaty.Toolbar" parent="Widget.AppCompat.Toolbar">

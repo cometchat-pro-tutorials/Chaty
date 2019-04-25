@@ -26,7 +26,6 @@
         android:layout_marginRight="20dp"
         android:hint="Username"
         android:focusedByDefault="false"
-        android:defaultFocusHighlightEnabled="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgLogo"
@@ -38,6 +37,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
