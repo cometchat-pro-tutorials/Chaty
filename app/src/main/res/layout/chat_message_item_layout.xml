@@ -1,70 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:background="@color/colorWindowBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
     android:paddingTop="10dp"
     android:paddingRight="10dp"
-    android:paddingLeft="10dp">
+    tools:background="@color/colorWindowBackground">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardChatMyMessage"
+    <FrameLayout android:id="@+id/layoutMyMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:contentPadding="12dp"
-        app:cardCornerRadius="8dp"
-        tools:visibility="gone"
-        android:elevation="5dp"
-        app:cardBackgroundColor="@color/colorAccentLight"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@id/guideMyMessage"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtMyMessage"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardChatMyMessage"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            tools:text="@tools:sample/lorem/random"/>
+            android:layout_gravity="right"
+            android:elevation="5dp"
+            app:cardBackgroundColor="@color/colorAccentLight"
+            app:cardCornerRadius="8dp"
+            app:contentPadding="12dp">
 
-    </com.google.android.material.card.MaterialCardView>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtMyMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                tools:text="@tools:sample/lorem" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideMyMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15"/>
+        app:layout_constraintGuide_percent="0.15" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardChatOtherMessage"
+    <FrameLayout android:id="@+id/layoutOtherMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:contentPadding="12dp"
-        app:cardCornerRadius="8dp"
-        android:elevation="5dp"
+        tools:visibility="visible"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/guideOtherMessage"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtOtherMessage"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardChatOtherMessage"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="15sp"
-            tools:text="@tools:sample/lorem"/>
+            android:elevation="5dp"
+            app:cardCornerRadius="8dp"
+            app:contentPadding="12dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/guideOtherMessage"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.card.MaterialCardView>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtOtherMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                tools:text="@tools:sample/lorem" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideOtherMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85"/>
+        app:layout_constraintGuide_percent="0.85" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

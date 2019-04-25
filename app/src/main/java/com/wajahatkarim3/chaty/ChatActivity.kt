@@ -115,6 +115,8 @@ class ChatActivity : AppCompatActivity()
         messagesList.add(MessageModel("Fine", true))
         messagesList.add(MessageModel("What ya upto these days?", true))
         messagesList.add(MessageModel("Same ol' job dude!", false))
+        messagesList.add(MessageModel("Same ol' job dude! asfa sfasf asfd asfd asf asdf asfd asf asfasf asf asf asf sf safasfdasdf asf asfd asf asdfasdf", false))
+        messagesList.add(MessageModel("Same ol' job dude! asfa sfasf asfd asfd asf asdf asfd asf asfasf asf asf asf sf safasfdasdf asf asfd asf asdfasdf", true))
         messagesAdapter?.notifyDataSetChanged()
     }
 
