@@ -124,6 +124,7 @@ class ContactsActivity : AppCompatActivity() {
             var user = contactsList[position]
             holder.bindItem(user) {
                 var intent = Intent(context, ChatActivity::class.java)
+                intent.putExtra("uid", user.uid)
                 intent.putExtra("name", user.name)
                 intent.putExtra("status", user.status)
                 intent.putExtra("photo", user.photoUrl)
@@ -161,16 +162,7 @@ class ContactsActivity : AppCompatActivity() {
                     Glide.with(context)
                         .asBitmap()
                         .load(userModel.photoUrl)
-                        .into(object : SimpleTarget<Bitmap>() {
-                            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                                imgContactPhoto.setImageBitmap(resource)
-                            }
-
-                            override fun onLoadFailed(errorDrawable: Drawable?) {
-                                super.onLoadFailed(errorDrawable)
-                                Log.e("Chaty", "Avatar Image Loading Failed")
-                            }
-                        })
+                        .into(imgContactPhoto)
                 }
                 else
                 {

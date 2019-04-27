@@ -8,12 +8,21 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.view.menu.ActionMenuItemView
+import androidx.appcompat.view.menu.BaseMenuPresenter
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cometchat.pro.constants.CometChatConstants
+import com.cometchat.pro.core.CometChat
+import com.cometchat.pro.core.MessagesRequest
+import com.cometchat.pro.exceptions.CometChatException
+import com.cometchat.pro.models.BaseMessage
+import com.cometchat.pro.models.TextMessage
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
@@ -23,6 +32,7 @@ class ChatActivity : AppCompatActivity()
     lateinit var txtMessageBox: AppCompatEditText
     lateinit var btnSend: AppCompatImageView
     lateinit var recyclerMessages: RecyclerView
+    lateinit var progressLoading: ProgressBar
 
     val messagesList = arrayListOf<MessageModel>()
     var messagesAdapter: ChatMessagesAdapter? = null
@@ -34,17 +44,35 @@ class ChatActivity : AppCompatActivity()
         if (intent.extras != null)
         {
             user = UserModel (
+                uid = intent.getStringExtra("uid"),
                 name = intent.getStringExtra("name"),
                 status = intent.getStringExtra("status"),
                 photoUrl = intent.getStringExtra("photo")
             )
 
             setupViews()
-            loadDummyMessages()
+            loadConversationMessages()
         }
         else
         {
             finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        user?.let {
+            var listenerId = getCombinedID(CometChat.getLoggedInUser().uid, it.uid)
+            CometChat.addMessageListener(listenerId, object : CometChat.MessageListener() {
+                override fun onTextMessageReceived(message: TextMessage?) {
+                    message?.let {
+                        messagesList.add(MessageModel(message = it.text, isMine = false))
+                        messagesAdapter?.notifyItemInserted(messagesList.size)
+                        recyclerMessages.scrollToPosition(messagesList.size-1)
+                    }
+                }
+            })
         }
     }
 
@@ -54,6 +82,7 @@ class ChatActivity : AppCompatActivity()
         txtMessageBox = findViewById(R.id.txtMessageBox)
         btnSend = findViewById(R.id.imgSend)
         recyclerMessages = findViewById(R.id.recyclerMessages)
+        progressLoading = findViewById(R.id.progressLoading)
 
         // Toolbar
         supportActionBar?.apply {
@@ -86,15 +115,83 @@ class ChatActivity : AppCompatActivity()
     }
 
     private fun sendMessage(message: String) {
-        if (!txtMessageBox.text.toString().isEmpty())
+        if (!message.isEmpty())
         {
-            var messageModel = MessageModel(message, true)
-            messagesList.add(messageModel)
-            messagesAdapter?.notifyItemInserted(messagesList.size-1)
-            recyclerMessages.scrollToPosition(messagesList.size-1)
+            user?.let {
+                val receiverID: String = it.uid
+                val messageText = message
+                val messageType = CometChatConstants.MESSAGE_TYPE_TEXT
+                val receiverType = CometChatConstants.RECEIVER_TYPE_USER
 
-            // Clear the message box
-            txtMessageBox.setText("")
+                val textMessage = TextMessage(receiverID, messageText, messageType,receiverType)
+
+                CometChat.sendMessage(textMessage, object : CometChat.CallbackListener<TextMessage>() {
+                    override fun onSuccess(p0: TextMessage?) {
+
+                    }
+
+                    override fun onError(p0: CometChatException?) {
+
+                    }
+                })
+
+                var messageModel = MessageModel(message, true)
+                messagesList.add(messageModel)
+                messagesAdapter?.notifyItemInserted(messagesList.size-1)
+                recyclerMessages.scrollToPosition(messagesList.size-1)
+
+                // Clear the message box
+                txtMessageBox.setText("")
+            }
+        }
+    }
+
+    fun loadConversationMessages()
+    {
+        user?.let {
+
+            // Show Progress Bar
+            progressLoading.visibility = View.VISIBLE
+            recyclerMessages.visibility = View.GONE
+
+            var messagesRequest = MessagesRequest.MessagesRequestBuilder()
+                .setUID(it.uid)
+                .setLimit(30)
+                .build()
+
+            messagesRequest.fetchPrevious(object : CometChat.CallbackListener<List<BaseMessage>>() {
+                override fun onSuccess(msgList: List<BaseMessage>?) {
+                    // Hide Progress bar
+                    progressLoading.visibility = View.GONE
+                    recyclerMessages.visibility = View.VISIBLE
+
+                    if (msgList != null)
+                    {
+                        for (msg in msgList)
+                        {
+                            if (msg is TextMessage)
+                            {
+                                messagesList.add(msg.convertToMessageModel())
+                            }
+                        }
+
+                        // Update RecyclerView
+                        messagesAdapter?.notifyDataSetChanged()
+                    }
+                    else
+                    {
+                        Toast.makeText(this@ChatActivity, "Couldn't fetch messages!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onError(exception: CometChatException?) {
+                    // Hide Progress bar
+                    progressLoading.visibility = View.GONE
+                    recyclerMessages.visibility = View.VISIBLE
+
+                    Toast.makeText(this@ChatActivity, exception?.localizedMessage ?: "Unknown error occurred!", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 
