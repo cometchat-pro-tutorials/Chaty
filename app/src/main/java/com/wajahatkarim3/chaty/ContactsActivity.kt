@@ -2,13 +2,18 @@ package com.wajahatkarim3.chaty
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,10 +22,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
+import com.cometchat.pro.core.CometChat
+import com.cometchat.pro.core.UsersRequest
+import com.cometchat.pro.exceptions.CometChatException
+import com.cometchat.pro.models.User
 
 class ContactsActivity : AppCompatActivity() {
 
     lateinit var recyclerContacts: RecyclerView
+    lateinit var progressLoading: ProgressBar
     lateinit var layoutManager: LinearLayoutManager
     lateinit var recyclerAdapter: ContactsRecyclerAdapter
     var contactsList = arrayListOf<UserModel>()
@@ -30,17 +43,64 @@ class ContactsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contacts)
 
         setupViews()
-        loadDummyData()
+        loadAllUsers()
     }
 
     fun setupViews()
     {
+        // progress bar
+        progressLoading = findViewById(R.id.progressLoading)
+
         // RecyclerView
         recyclerContacts = findViewById(R.id.recyclerContacts)
         layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         recyclerContacts.layoutManager = layoutManager
         recyclerAdapter = ContactsRecyclerAdapter(this)
         recyclerContacts.adapter = recyclerAdapter
+    }
+
+    fun loadAllUsers()
+    {
+        // Show Progress Bar
+        progressLoading.visibility = View.VISIBLE
+        recyclerContacts.visibility = View.GONE
+
+        // Load All Users from Comet Chat
+        var usersRequest = UsersRequest.UsersRequestBuilder().setLimit(10).build()
+        usersRequest.fetchNext(object : CometChat.CallbackListener<List<User>>() {
+            override fun onSuccess(usersList: List<User>?) {
+                if (usersList != null)
+                {
+                    var loggedInUser = CometChat.getLoggedInUser()
+                    for (user in usersList)
+                    {
+                        // Don't add yourself (logged in user) in the list
+                        if (loggedInUser.uid != user.uid)
+                            contactsList.add(user.convertToUserModel())
+                    }
+
+                    // Update the Recycler Adapter
+                    recyclerAdapter.notifyDataSetChanged()
+                }
+                else
+                {
+                    Toast.makeText(this@ContactsActivity, "Couldn't load the users!", Toast.LENGTH_SHORT).show()
+                }
+
+                // Hide Progress
+                progressLoading.visibility = View.GONE
+                recyclerContacts.visibility = View.VISIBLE
+            }
+
+            override fun onError(exception: CometChatException?) {
+
+                // Hide Progress
+                progressLoading.visibility = View.GONE
+                recyclerContacts.visibility = View.VISIBLE
+
+                Toast.makeText(this@ContactsActivity, exception?.localizedMessage ?: "Unknown error occurred!", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     fun loadDummyData()
@@ -95,11 +155,32 @@ class ContactsActivity : AppCompatActivity() {
                 userItemClickCallback = callback
                 txtUsername.text = userModel.name
                 txtStatus.text = userModel.status
-                setAvatarImage(userModel.name[0].toString())
-                if (userModel.status.equals("Online"))
-                    txtStatus.setTextColor(context.resources.getColor(R.color.colorOnline))
+                if (userModel.photoUrl != null && !userModel.photoUrl.isEmpty())
+                {
+                    // Load Avatar Image if any
+                    Glide.with(context)
+                        .asBitmap()
+                        .load(userModel.photoUrl)
+                        .into(object : SimpleTarget<Bitmap>() {
+                            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                imgContactPhoto.setImageBitmap(resource)
+                            }
+
+                            override fun onLoadFailed(errorDrawable: Drawable?) {
+                                super.onLoadFailed(errorDrawable)
+                                Log.e("Chaty", "Avatar Image Loading Failed")
+                            }
+                        })
+                }
                 else
-                    txtStatus.setTextColor(context.resources.getColor(R.color.colorOffline))
+                {
+                    // Generate Letter Avatar
+                    setAvatarImage(userModel.name[0].toString())
+                    if (userModel.status.equals("Online"))
+                        txtStatus.setTextColor(context.resources.getColor(R.color.colorOnline))
+                    else
+                        txtStatus.setTextColor(context.resources.getColor(R.color.colorOffline))
+                }
             }
 
             fun setAvatarImage(letter: String)
