@@ -11,7 +11,8 @@ fun User.convertToUserModel() : UserModel
     return UserModel (
         uid = uid,
         name = name,
-        photoUrl = avatar
+        photoUrl = avatar,
+        status = status
     )
 }
 
@@ -35,4 +36,21 @@ fun Any.getCombinedID(id1: String, id2:String) : String
     newid = list[0] + "-" + list[1]
 
     return newid
+}
+
+fun Any.getUniqueListenerId(uid: String) : String
+{
+    return getCombinedID(CometChat.getLoggedInUser().uid, uid)
+}
+
+fun Any.searchUserWithId(usersList: List<UserModel>, uid: String) : Int?
+{
+    var i = 0
+    for (user in usersList)
+    {
+        if (user.uid == uid)
+            return i
+        i++
+    }
+    return null
 }

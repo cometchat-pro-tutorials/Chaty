@@ -6,6 +6,7 @@
     <color name="colorAccentLight">#c84241</color>
     <color name="textColorPrimary">#222322</color>
     <color name="textColorSecondary">#FFFFFF</color>
+    <color name="textColorSubtitle">#575757</color>
     <color name="colorControlActivated">#c84241</color>
     <color name="colorControlDefault">#444444</color>
     <color name="colorWindowBackground">#eeeeee</color>

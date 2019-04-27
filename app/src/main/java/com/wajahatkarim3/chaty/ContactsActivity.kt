@@ -46,6 +46,14 @@ class ContactsActivity : AppCompatActivity() {
         loadAllUsers()
     }
 
+    override fun onPause() {
+        super.onPause()
+        for (user in contactsList)
+        {
+            CometChat.removeUserListener(getUniqueListenerId(user.uid))
+        }
+    }
+
     fun setupViews()
     {
         // progress bar
@@ -76,7 +84,35 @@ class ContactsActivity : AppCompatActivity() {
                     {
                         // Don't add yourself (logged in user) in the list
                         if (loggedInUser.uid != user.uid)
+                        {
                             contactsList.add(user.convertToUserModel())
+
+                            // Add Online/Offline Listener
+                            CometChat.addUserListener(getUniqueListenerId(user.uid), object : CometChat.UserListener() {
+                                override fun onUserOffline(offlineUser: User?) {
+                                    super.onUserOffline(offlineUser)
+                                    user?.let {
+                                        searchUserWithId(contactsList, it.uid)?.let {
+                                            contactsList[it].status = "offline"
+                                            recyclerAdapter?.notifyItemChanged(it)
+
+                                        }
+                                    }
+
+                                }
+
+                                override fun onUserOnline(user: User?) {
+                                    super.onUserOnline(user)
+                                    user?.let {
+                                        searchUserWithId(contactsList, it.uid)?.let {
+                                            contactsList[it].status = "online"
+                                            recyclerAdapter?.notifyItemChanged(it)
+
+                                        }
+                                    }
+                                }
+                            })
+                        }
                     }
 
                     // Update the Recycler Adapter
@@ -155,7 +191,7 @@ class ContactsActivity : AppCompatActivity() {
             {
                 userItemClickCallback = callback
                 txtUsername.text = userModel.name
-                txtStatus.text = userModel.status
+
                 if (userModel.photoUrl != null && !userModel.photoUrl.isEmpty())
                 {
                     // Load Avatar Image if any
@@ -168,11 +204,13 @@ class ContactsActivity : AppCompatActivity() {
                 {
                     // Generate Letter Avatar
                     setAvatarImage(userModel.name[0].toString())
-                    if (userModel.status.equals("Online"))
-                        txtStatus.setTextColor(context.resources.getColor(R.color.colorOnline))
-                    else
-                        txtStatus.setTextColor(context.resources.getColor(R.color.colorOffline))
                 }
+
+                txtStatus.text = userModel.status
+                if (userModel.status.equals("online"))
+                    txtStatus.setTextColor(context.resources.getColor(R.color.colorOnline))
+                else
+                    txtStatus.setTextColor(context.resources.getColor(R.color.colorOffline))
             }
 
             fun setAvatarImage(letter: String)

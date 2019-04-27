@@ -2,6 +2,7 @@ package com.wajahatkarim3.chaty
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.text.Layout
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -23,6 +24,7 @@ import com.cometchat.pro.core.MessagesRequest
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.BaseMessage
 import com.cometchat.pro.models.TextMessage
+import com.cometchat.pro.models.User
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
@@ -63,8 +65,7 @@ class ChatActivity : AppCompatActivity()
         super.onResume()
 
         user?.let {
-            var listenerId = getCombinedID(CometChat.getLoggedInUser().uid, it.uid)
-            CometChat.addMessageListener(listenerId, object : CometChat.MessageListener() {
+            CometChat.addMessageListener(getUniqueListenerId(it.uid), object : CometChat.MessageListener() {
                 override fun onTextMessageReceived(message: TextMessage?) {
                     message?.let {
                         messagesList.add(MessageModel(message = it.text, isMine = false))
@@ -73,6 +74,28 @@ class ChatActivity : AppCompatActivity()
                     }
                 }
             })
+
+            // Add Online/Offline Listener
+            CometChat.addUserListener(getUniqueListenerId(it.uid), object : CometChat.UserListener() {
+                override fun onUserOffline(offlineUser: User?) {
+                    super.onUserOffline(offlineUser)
+                    setUserStatus(false)
+                }
+
+                override fun onUserOnline(user: User?) {
+                    super.onUserOnline(user)
+                    setUserStatus(true)
+                }
+            })
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        user?.let {
+            CometChat.removeMessageListener(getUniqueListenerId(it.uid))
+            CometChat.removeUserListener(getUniqueListenerId(it.uid))
         }
     }
 
@@ -87,9 +110,11 @@ class ChatActivity : AppCompatActivity()
         // Toolbar
         supportActionBar?.apply {
             title = user?.name
+            subtitle = user?.status
             setDisplayShowHomeEnabled(true)
             setDisplayHomeAsUpEnabled(true)
         }
+        setUserStatus(user?.status == "online")
 
         // Recycler View
         messagesAdapter = ChatMessagesAdapter()
@@ -111,6 +136,18 @@ class ChatActivity : AppCompatActivity()
         // Send Button
         btnSend.setOnClickListener {
             sendMessage(txtMessageBox.text.toString())
+        }
+    }
+
+    private fun setUserStatus(isOnline: Boolean)
+    {
+        if (isOnline)
+        {
+            supportActionBar?.subtitle = Html.fromHtml("<font color='#149214'>online</font>")
+        }
+        else
+        {
+            supportActionBar?.subtitle = Html.fromHtml("<font color='#575757'>offline</font>")
         }
     }
 
