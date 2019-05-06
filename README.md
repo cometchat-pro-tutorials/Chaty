@@ -19,23 +19,14 @@
 </div>
 <br/>
 
+Read the full tutorial here:
+**Coming Soon**
+
 Chaty is an Android Demo app (using **CometChat Pro**) for a fully functional messaging app capable of **one-on-one** (private) messaging. The app enables users to send **text** messages to other users in realtime.
 
+This example shows how to build an one-to-one chat with Android using Kotlin.
+
 [![Platform](https://img.shields.io/badge/Platform-Android-brightgreen.svg)](#)      [![Platform](https://img.shields.io/badge/Language-Kotlin-yellowgreen.svg)](#)
-
-
-
-## Table of Contents
-
-1. [Screenshots ](#screenshots)
-
-2. [How-to Guide Article](#how-to-guide-article)
-
-3. [Installation ](#installtion)
-
-4. [Run the Sample App ](#run-the-sample-app)
-
-5. [Contribute](#contribute)
 
 ## ScreenShots
 
@@ -43,8 +34,13 @@ Chaty is an Android Demo app (using **CometChat Pro**) for a fully functional me
   <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Art/LoginScreen.png" width="280px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Art/ContactsScreen.png" width="280px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Art/MessagesScreen.png" width="280px" />
 </div>
 
-## How-to Guide Article
-Coming soon
+## Technology
+This demo uses:
+
+* CometChat Pro Android SDK (1.3.+) versions
+* Android and Kotlin
+* Material Components by Google
+* Glide for Image Loading
 
 ## Installtion
 
@@ -53,27 +49,28 @@ Coming soon
    
 
 ## Run the Sample App
-   To Run to sample App you have to do the following changes by Adding **ApiKey** and **AppId**
+To run the demo follow these steps:
 
-   - Open the Project in Android Mode in Android Studio
+1. [Head to CometChat Pro and create an account](https://cometchat.com/pro?utm_source=github&utm_medium=wajahatkarim3-chaty-readme)
+2. From the [dashboard](https://app.cometchat.com/?utm_source=github&utm_medium=wajahatkarim3-chaty-readme), create a new app called "One-To-One Android Chat"
+3. One created, click **Explore**
+4. Go to the **API Keys** tab and click **Create API Key**
+5. Create an API key called "Android One-To-One Chat Key" with **Full Access**
+4. Download the repository [here](https://github.com/wajahatkarim3/Chaty/archive/master.zip) or by running `git clone https://github.com/wajahatkarim3/Chaty.git` and open it in Android Studio
+5. Update [strings.xml](https://github.com/wajahatkarim3/Chaty/blob/master/app/src/main/res/values/strings.xml) with your newly-created `appID` and `apiKey`
+6. Run the app and login with one of the test users: superhero1, superhero2, superhero3, superhero4 or superhero5
 
-   - Go to Under `java --> com\wajahatkarim3\chaty--> Constants.kt`
-   
-  -  Change *COMET_APP_ID * and *COMET_API_KEY* with your own **ApiKey** and **AppId**
+Questions about running the demo? [Open an issue](https://github.com/wajahatkarim3/Chaty/issues). We're here to help ✌️
 
-```kotlin
-val COMET_APP_ID = "xxxxxx"
-val COMET_API_KEY = "xxxxxx"
-```
 
-## Note
+## Useful links
 
-   You can Obtain your  *APP_ID* and *API_KEY* from [CometChat-Pro Dashboard](https://app.cometchat.com/)
-
-   For more information read [CometChat-Pro Android SDK](https://prodocs.cometchat.com/docs/android-quick-start) Documentation
+- 🏠 [CometChat Homepage](https://cometchat.com/pro?utm_source=github&utm_medium=example-code-readme)
+- 🚀 [Create your free account](https://app.cometchat.com?utm_source=github&utm_medium=example-code-readme)
+- 📚 [Documentation](https://prodocs.cometchat.com/docs?utm_source=github&utm_medium=example-code-readme)
+- 👾 [GitHub](https://github.com/CometChat-Pro)
 
 ## Contribute
-
 
  Feel free to make Pull Request.
    
