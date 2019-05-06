@@ -65,9 +65,9 @@ Questions about running the demo? [Open an issue](https://github.com/wajahatkari
 
 ## Useful links
 
-- 🏠 [CometChat Homepage](https://cometchat.com/pro?utm_source=github&utm_medium=example-code-readme)
-- 🚀 [Create your free account](https://app.cometchat.com?utm_source=github&utm_medium=example-code-readme)
-- 📚 [Documentation](https://prodocs.cometchat.com/docs?utm_source=github&utm_medium=example-code-readme)
+- 🏠 [CometChat Homepage](https://cometchat.com/pro?utm_source=github&utm_medium=wajahatkarim3-chaty-readme)
+- 🚀 [Create your free account](https://app.cometchat.com?utm_source=github&utm_medium=wajahatkarim3-chaty-readme)
+- 📚 [Documentation](https://prodocs.cometchat.com/docs?utm_source=github&utm_medium=wajahatkarim3-chaty-readme)
 - 👾 [GitHub](https://github.com/CometChat-Pro)
 
 ## Contribute
