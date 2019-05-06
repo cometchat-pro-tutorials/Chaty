@@ -10,7 +10,7 @@ class ChattyApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        CometChat.init(this, Constants.COMET_APP_ID, object : CometChat.CallbackListener<String>() {
+        CometChat.init(this, getString(R.string.comet_app_id), object : CometChat.CallbackListener<String>() {
             override fun onSuccess(p0: String?) {
                 Log.d("ChattyApp", "Initialization completed successfully!")
             }

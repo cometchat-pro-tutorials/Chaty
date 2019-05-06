@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity()
         btnLogin.visibility = View.GONE
         txtUsername.isEnabled = false
 
-        CometChat.login(userId, Constants.COMET_API_KEY, object : CometChat.CallbackListener<User>() {
+        CometChat.login(userId, getString(R.string.comet_api_key), object : CometChat.CallbackListener<User>() {
             override fun onSuccess(user: User?) {
 
                 // Hide Progress Bar
