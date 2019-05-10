@@ -41,36 +41,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imgAdd"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:clickable="true"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:src="@drawable/ic_add_circle_black_24dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/imgImage"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imgImage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:clickable="true"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:src="@drawable/ic_crop_original_black_24dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                app:layout_constraintLeft_toRightOf="@id/imgAdd"
-                app:layout_constraintRight_toLeftOf="@id/txtMessageBox"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
-
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/txtMessageBox"
                 android:layout_width="0dp"
@@ -87,7 +57,7 @@
                 android:singleLine="true"
                 android:imeOptions="actionGo"
                 android:hint="Type a message here"
-                app:layout_constraintLeft_toRightOf="@id/imgImage"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/imgSend"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
