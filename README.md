@@ -2,7 +2,7 @@
 <div style="width:100%">
 	<div style="width:50%; display:inline-block">
 		<p align="center">
-		<img align="center" width="180" height="180" alt="" src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Art/Chaty_Logo.png">	
+		<img align="center" width="180" height="180" alt="" src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/Chaty_Logo.png">	
 		</p>	
 	</div>	
 </div>
@@ -31,7 +31,7 @@ This example shows how to build an one-to-one chat with Android using Kotlin.
 ## ScreenShots
 
  <div align="center">
-  <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Art/LoginScreen.png" width="280px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Art/ContactsScreen.png" width="280px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Art/MessagesScreen.png" width="280px" />
+  <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/LoginScreen.png" width="280px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/ContactsScreen.png" width="280px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/MessagesScreen.png" width="280px" />  <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/ProfileScreen.png" width="280px" />
 </div>
 
 ## Technology
@@ -69,8 +69,4 @@ Questions about running the demo? [Open an issue](https://github.com/wajahatkari
 - 🚀 [Create your free account](https://app.cometchat.com?utm_source=github&utm_medium=wajahatkarim3-chaty-readme)
 - 📚 [Documentation](https://prodocs.cometchat.com/docs?utm_source=github&utm_medium=wajahatkarim3-chaty-readme)
 - 👾 [GitHub](https://github.com/CometChat-Pro)
-
-## Contribute
-
- Feel free to make Pull Request.
    
