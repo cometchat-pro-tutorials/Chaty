@@ -31,7 +31,7 @@ This example shows how to build an one-to-one chat with Android using Kotlin.
 ## ScreenShots
 
  <div align="center">
-  <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/LoginScreen.png" width="280px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/ContactsScreen.png" width="280px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/MessagesScreen.png" width="280px" />  <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/ProfileScreen.png" width="280px" />
+  <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/LoginScreen.png" width="200px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/ContactsScreen.png" width="200px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/MessagesScreen.png" width="200px" />  <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/ProfileScreen.png" width="200px" />
 </div>
 
 ## Technology
