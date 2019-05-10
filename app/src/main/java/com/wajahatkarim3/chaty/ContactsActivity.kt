@@ -9,9 +9,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
@@ -29,6 +28,7 @@ import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.core.UsersRequest
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
+import com.google.android.material.card.MaterialCardView
 
 class ContactsActivity : AppCompatActivity() {
 
@@ -65,6 +65,23 @@ class ContactsActivity : AppCompatActivity() {
         recyclerContacts.layoutManager = layoutManager
         recyclerAdapter = ContactsRecyclerAdapter(this)
         recyclerContacts.adapter = recyclerAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var inflater = menuInflater
+        inflater.inflate(R.menu.menu_contacts, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId)
+        {
+            R.id.menuProfile -> {
+                var intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return true
     }
 
     fun loadAllUsers()

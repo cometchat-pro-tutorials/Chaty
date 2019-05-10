@@ -193,7 +193,6 @@ class ChatActivity : AppCompatActivity()
 
             var messagesRequest = MessagesRequest.MessagesRequestBuilder()
                 .setUID(it.uid)
-                .setLimit(30)
                 .build()
 
             messagesRequest.fetchPrevious(object : CometChat.CallbackListener<List<BaseMessage>>() {
