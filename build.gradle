@@ -22,9 +22,6 @@ allprojects {
             url 'http://dl.bintray.com/amulyakhare/maven'
         }
         maven {
-            url "https://dl.bintray.com/cometchat/pro"
-        }
-        maven {
             url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
         }
     }

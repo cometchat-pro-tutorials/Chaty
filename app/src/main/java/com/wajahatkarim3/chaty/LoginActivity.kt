@@ -3,14 +3,10 @@ package com.wajahatkarim3.chaty
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.Toast
-import com.cometchat.pro.core.CometChat
-import com.cometchat.pro.exceptions.CometChatException
-import com.cometchat.pro.models.User
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -56,36 +52,16 @@ class LoginActivity : AppCompatActivity()
         btnLogin.visibility = View.GONE
         txtUsername.isEnabled = false
 
-        CometChat.login(userId, getString(R.string.comet_api_key), object : CometChat.CallbackListener<User>() {
-            override fun onSuccess(user: User?) {
+        perfomDummyLogin()
+    }
 
-                // Hide Progress Bar
-                progressLoading.visibility = View.GONE
-                btnLogin.visibility = View.VISIBLE
-                txtUsername.isEnabled = true
-
-                if (user != null)
-                {
-                    // Go to Contacts screen
-                    var intent = Intent(this@LoginActivity, ContactsActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-                else
-                {
-                    Toast.makeText(this@LoginActivity, "Couldn't find the user", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onError(exception: CometChatException?) {
-
-                // Hide Progress Bar
-                progressLoading.visibility = View.GONE
-                btnLogin.visibility = View.VISIBLE
-                txtUsername.isEnabled = true
-
-                Toast.makeText(this@LoginActivity, exception?.localizedMessage ?: "Unknown Error Occurred!", Toast.LENGTH_SHORT).show()
-            }
-        })
+    fun perfomDummyLogin()
+    {
+        Handler().postDelayed(Runnable {
+            // Go to Contacts screen
+            var intent = Intent(this@LoginActivity, ContactsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }, 2*1000)                  // 2 seconds dummy delay
     }
 }

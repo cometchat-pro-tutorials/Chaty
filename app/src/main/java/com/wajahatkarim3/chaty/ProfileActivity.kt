@@ -9,9 +9,6 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
-import com.bumptech.glide.Glide
-import com.cometchat.pro.core.CometChat
-import com.cometchat.pro.exceptions.CometChatException
 import com.google.android.material.button.MaterialButton
 
 class ProfileActivity : AppCompatActivity() {
@@ -58,48 +55,29 @@ class ProfileActivity : AppCompatActivity() {
 
     fun setupProfile()
     {
-        var loggedInUser = CometChat.getLoggedInUser()
-        loggedInUser?.let {user ->
-            txtUsername.text = user.name
-            txtEmail.text = user.uid
-            if (user.avatar != null)
-            {
-                // Load Avatar Image if any
-                Glide.with(this)
-                    .asBitmap()
-                    .load(user.avatar)
-                    .into(imgContactPhoto)
-            }
-            else
-            {
-                // Generate Letter Avatar
-                var generator = ColorGenerator.MATERIAL
-                var color = generator.randomColor
+        // Setting Up Dummy User Data
+        var name = "My Name"
+        var email = "my.name@domain.com"
 
-                var drawable = TextDrawable.builder().buildRect(user.name[0].toString(), color)
-                imgContactPhoto.setImageDrawable(drawable)
-            }
-        }
+        txtUsername.text = name
+        txtEmail.text = email
+
+        // Generate Letter Avatar
+        var generator = ColorGenerator.MATERIAL
+        var color = generator.randomColor
+
+        var drawable = TextDrawable.builder().buildRect(name, color)
+        imgContactPhoto.setImageDrawable(drawable)
     }
 
     fun logoutUser()
     {
-        CometChat.getLoggedInUser()?.let {
-            CometChat.logout(object : CometChat.CallbackListener<String>() {
-                override fun onSuccess(p0: String?) {
-                    // Starting Login screen
-                    val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    finish()
-                }
-
-                override fun onError(exception: CometChatException?) {
-                    Toast.makeText(this@ProfileActivity, exception?.message ?: "Unknown Error Occured!", Toast.LENGTH_LONG).show()
-                }
-            })
-        }
+        // Starting Login screen
+        val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
     }
 }

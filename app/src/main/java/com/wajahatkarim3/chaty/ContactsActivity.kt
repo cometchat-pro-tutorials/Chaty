@@ -2,17 +2,11 @@ package com.wajahatkarim3.chaty
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 import android.view.*
-import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,14 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
-import com.cometchat.pro.core.CometChat
-import com.cometchat.pro.core.UsersRequest
-import com.cometchat.pro.exceptions.CometChatException
-import com.cometchat.pro.models.User
-import com.google.android.material.card.MaterialCardView
 
 class ContactsActivity : AppCompatActivity() {
 
@@ -44,14 +30,6 @@ class ContactsActivity : AppCompatActivity() {
 
         setupViews()
         loadAllUsers()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        for (user in contactsList)
-        {
-            CometChat.removeUserListener(getUniqueListenerId(user.uid))
-        }
     }
 
     fun setupViews()
@@ -91,77 +69,22 @@ class ContactsActivity : AppCompatActivity() {
         recyclerContacts.visibility = View.GONE
 
         // Load All Users from Comet Chat
-        var usersRequest = UsersRequest.UsersRequestBuilder().setLimit(10).build()
-        usersRequest.fetchNext(object : CometChat.CallbackListener<List<User>>() {
-            override fun onSuccess(usersList: List<User>?) {
-                if (usersList != null)
-                {
-                    var loggedInUser = CometChat.getLoggedInUser()
-                    for (user in usersList)
-                    {
-                        // Don't add yourself (logged in user) in the list
-                        if (loggedInUser.uid != user.uid)
-                        {
-                            contactsList.add(user.convertToUserModel())
+        Handler().postDelayed(Runnable {
+            loadDummyData()
 
-                            // Add Online/Offline Listener
-                            CometChat.addUserListener(getUniqueListenerId(user.uid), object : CometChat.UserListener() {
-                                override fun onUserOffline(offlineUser: User?) {
-                                    super.onUserOffline(offlineUser)
-                                    user?.let {
-                                        searchUserWithId(contactsList, it.uid)?.let {
-                                            contactsList[it].status = "offline"
-                                            recyclerAdapter?.notifyItemChanged(it)
+            // Hide Progress
+            progressLoading.visibility = View.GONE
+            recyclerContacts.visibility = View.VISIBLE
 
-                                        }
-                                    }
-
-                                }
-
-                                override fun onUserOnline(user: User?) {
-                                    super.onUserOnline(user)
-                                    user?.let {
-                                        searchUserWithId(contactsList, it.uid)?.let {
-                                            contactsList[it].status = "online"
-                                            recyclerAdapter?.notifyItemChanged(it)
-
-                                        }
-                                    }
-                                }
-                            })
-                        }
-                    }
-
-                    // Update the Recycler Adapter
-                    recyclerAdapter.notifyDataSetChanged()
-                }
-                else
-                {
-                    Toast.makeText(this@ContactsActivity, "Couldn't load the users!", Toast.LENGTH_SHORT).show()
-                }
-
-                // Hide Progress
-                progressLoading.visibility = View.GONE
-                recyclerContacts.visibility = View.VISIBLE
-            }
-
-            override fun onError(exception: CometChatException?) {
-
-                // Hide Progress
-                progressLoading.visibility = View.GONE
-                recyclerContacts.visibility = View.VISIBLE
-
-                Toast.makeText(this@ContactsActivity, exception?.localizedMessage ?: "Unknown error occurred!", Toast.LENGTH_SHORT).show()
-            }
-        })
+        }, 2*1000)      // 4 seconds dummy delay
     }
 
     fun loadDummyData()
     {
-        contactsList.add(UserModel("John Doe", "Online", "https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png"))
-        contactsList.add(UserModel("Alexa Johnson", "Offline", "https://previews.123rf.com/images/juliasart/juliasart1704/juliasart170400022/75406270-vector-girl-icon-woman-avatar-face-icon-cartoon-style-.jpg"))
-        contactsList.add(UserModel("Robert Smith", "Online", "https://i.pinimg.com/originals/a7/0e/16/a70e1675c7bc001f1578aa76bb0a7819.png"))
-        contactsList.add(UserModel("Steve Boam", "Online", "https://cdn1.iconfinder.com/data/icons/people-faces-2/512/11-512.png"))
+        contactsList.add(UserModel(name = "John Doe", status = "online", photoUrl = "https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png"))
+        contactsList.add(UserModel(name = "Alexa Johnson", status = "offline", photoUrl = "https://previews.123rf.com/images/juliasart/juliasart1704/juliasart170400022/75406270-vector-girl-icon-woman-avatar-face-icon-cartoon-style-.jpg"))
+        contactsList.add(UserModel(name = "Robert Smith", status = "offline", photoUrl = "https://i.pinimg.com/originals/a7/0e/16/a70e1675c7bc001f1578aa76bb0a7819.png"))
+        contactsList.add(UserModel(name = "Steve Boam", status = "online", photoUrl = "https://cdn1.iconfinder.com/data/icons/people-faces-2/512/11-512.png"))
         recyclerAdapter.notifyDataSetChanged()
     }
 

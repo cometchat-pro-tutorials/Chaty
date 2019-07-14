@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Chaty</string>
-    <string name="comet_app_id">YOUR_COMET_APP_ID</string>
-    <string name="comet_api_key">YOUR_COMET_API_KEY</string>
+    <string name="comet_app_id">2477c49c960970</string>
+    <string name="comet_api_key">8f6aedcd7ebebdd59b0b60f835642daa98f0521d</string>
 </resources>

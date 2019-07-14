@@ -2,30 +2,19 @@ package com.wajahatkarim3.chaty
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.Html
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.appcompat.view.menu.ActionMenuItemView
-import androidx.appcompat.view.menu.BaseMenuPresenter
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.cometchat.pro.constants.CometChatConstants
-import com.cometchat.pro.core.CometChat
-import com.cometchat.pro.core.MessagesRequest
-import com.cometchat.pro.exceptions.CometChatException
-import com.cometchat.pro.models.BaseMessage
-import com.cometchat.pro.models.TextMessage
-import com.cometchat.pro.models.User
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
 class ChatActivity : AppCompatActivity()
@@ -58,44 +47,6 @@ class ChatActivity : AppCompatActivity()
         else
         {
             finish()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        user?.let {
-            CometChat.addMessageListener(getUniqueListenerId(it.uid), object : CometChat.MessageListener() {
-                override fun onTextMessageReceived(message: TextMessage?) {
-                    message?.let {
-                        messagesList.add(MessageModel(message = it.text, isMine = false))
-                        messagesAdapter?.notifyItemInserted(messagesList.size)
-                        recyclerMessages.scrollToPosition(messagesList.size-1)
-                    }
-                }
-            })
-
-            // Add Online/Offline Listener
-            CometChat.addUserListener(getUniqueListenerId(it.uid), object : CometChat.UserListener() {
-                override fun onUserOffline(offlineUser: User?) {
-                    super.onUserOffline(offlineUser)
-                    setUserStatus(false)
-                }
-
-                override fun onUserOnline(user: User?) {
-                    super.onUserOnline(user)
-                    setUserStatus(true)
-                }
-            })
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        user?.let {
-            CometChat.removeMessageListener(getUniqueListenerId(it.uid))
-            CometChat.removeUserListener(getUniqueListenerId(it.uid))
         }
     }
 
@@ -157,20 +108,6 @@ class ChatActivity : AppCompatActivity()
             user?.let {
                 val receiverID: String = it.uid
                 val messageText = message
-                val messageType = CometChatConstants.MESSAGE_TYPE_TEXT
-                val receiverType = CometChatConstants.RECEIVER_TYPE_USER
-
-                val textMessage = TextMessage(receiverID, messageText, messageType,receiverType)
-
-                CometChat.sendMessage(textMessage, object : CometChat.CallbackListener<TextMessage>() {
-                    override fun onSuccess(p0: TextMessage?) {
-
-                    }
-
-                    override fun onError(p0: CometChatException?) {
-
-                    }
-                })
 
                 var messageModel = MessageModel(message, true)
                 messagesList.add(messageModel)
@@ -191,43 +128,14 @@ class ChatActivity : AppCompatActivity()
             progressLoading.visibility = View.VISIBLE
             recyclerMessages.visibility = View.GONE
 
-            var messagesRequest = MessagesRequest.MessagesRequestBuilder()
-                .setUID(it.uid)
-                .build()
+            Handler().postDelayed(Runnable {
+                loadDummyMessages()
 
-            messagesRequest.fetchPrevious(object : CometChat.CallbackListener<List<BaseMessage>>() {
-                override fun onSuccess(msgList: List<BaseMessage>?) {
-                    // Hide Progress bar
-                    progressLoading.visibility = View.GONE
-                    recyclerMessages.visibility = View.VISIBLE
+                // Hide Progress bar
+                progressLoading.visibility = View.GONE
+                recyclerMessages.visibility = View.VISIBLE
 
-                    if (msgList != null)
-                    {
-                        for (msg in msgList)
-                        {
-                            if (msg is TextMessage)
-                            {
-                                messagesList.add(msg.convertToMessageModel())
-                            }
-                        }
-
-                        // Update RecyclerView
-                        messagesAdapter?.notifyDataSetChanged()
-                    }
-                    else
-                    {
-                        Toast.makeText(this@ChatActivity, "Couldn't fetch messages!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onError(exception: CometChatException?) {
-                    // Hide Progress bar
-                    progressLoading.visibility = View.GONE
-                    recyclerMessages.visibility = View.VISIBLE
-
-                    Toast.makeText(this@ChatActivity, exception?.localizedMessage ?: "Unknown error occurred!", Toast.LENGTH_SHORT).show()
-                }
-            })
+            }, 1*1000)          // 1 seconds dummy delay
         }
     }
 
