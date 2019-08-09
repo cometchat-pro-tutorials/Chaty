@@ -20,7 +20,9 @@
 <br/>
 
 Read the full tutorial here:
-**Coming Soon**
+<div align="left"><p><a href="https://www.cometchat.com/tutorials/build-one-on-one-chat-in-your-android-app-using-kotlin/"><img alt="Build One-on-One Android Chat App in Kotlin" align="center" src="https://img.shields.io/badge/%F0%9F%93%84%20-NEW-red.svg" /></a>&nbsp;
+The article on how to build one-on-one Android chat app in Kotlin is now published. You can <a href="https://www.cometchat.com/tutorials/build-one-on-one-chat-in-your-android-app-using-kotlin/">read it on this link here. →</a>.
+</p></div>
 
 Chaty is an Android Demo app (using **CometChat Pro**) for a fully functional messaging app capable of **one-on-one** (private) messaging. The app enables users to send **text** messages to other users in realtime.
 
