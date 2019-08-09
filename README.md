@@ -19,7 +19,6 @@
 </div>
 <br/>
 
-Read the full tutorial here:
 <div align="left"><p><a href="https://www.cometchat.com/tutorials/build-one-on-one-chat-in-your-android-app-using-kotlin/"><img alt="Build One-on-One Android Chat App in Kotlin" align="center" src="https://img.shields.io/badge/%F0%9F%93%84%20-NEW-red.svg" /></a>&nbsp;
 The article on how to build one-on-one Android chat app in Kotlin is now published. You can <a href="https://www.cometchat.com/tutorials/build-one-on-one-chat-in-your-android-app-using-kotlin/">read it on this link here. →</a>.
 </p></div>
