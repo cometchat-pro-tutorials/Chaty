@@ -43,7 +43,7 @@ This demo uses:
 * Material Components by Google
 * Glide for Image Loading
 
-## Installtion
+## Installation
 
    Simply Clone the project from android-kotlin-chat-app repository and open in Android Studio.
    Build the Demo App and it will be ready to Run
@@ -54,7 +54,7 @@ To run the demo follow these steps:
 
 1. [Head to CometChat Pro and create an account](https://cometchat.com/pro?utm_source=github&utm_medium=wajahatkarim3-chaty-readme)
 2. From the [dashboard](https://app.cometchat.com/?utm_source=github&utm_medium=wajahatkarim3-chaty-readme), create a new app called "One-To-One Android Chat"
-3. One created, click **Explore**
+3. Once created, click **Explore**
 4. Go to the **API Keys** tab and click **Create API Key**
 5. Create an API key called "Android One-To-One Chat Key" with **Full Access**
 4. Download the repository [here](https://github.com/wajahatkarim3/Chaty/archive/master.zip) or by running `git clone https://github.com/wajahatkarim3/Chaty.git` and open it in Android Studio
