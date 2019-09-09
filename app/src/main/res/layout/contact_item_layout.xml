@@ -32,7 +32,7 @@
             tools:text="@tools:sample/full_names"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/imgContactPhoto"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/imgOptions"
             app:layout_constraintBottom_toTopOf="@id/txtStatus"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -49,6 +49,16 @@
             app:layout_constraintBottom_toBottomOf="@id/imgContactPhoto"
             android:textSize="17sp"
             android:layout_marginLeft="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgOptions"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_more_vert_black_24dp"
+            android:clickable="true"
+            app:layout_constraintTop_toTopOf="@+id/txtUsername"
+            app:layout_constraintBottom_toBottomOf="@+id/txtUsername"
+            app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

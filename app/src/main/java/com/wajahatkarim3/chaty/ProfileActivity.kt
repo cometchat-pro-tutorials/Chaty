@@ -10,9 +10,11 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.bumptech.glide.Glide
+import com.cometchat.pro.constants.CometChatConstants
 import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.exceptions.CometChatException
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.messaging.FirebaseMessaging
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -87,6 +89,11 @@ class ProfileActivity : AppCompatActivity() {
         CometChat.getLoggedInUser()?.let {
             CometChat.logout(object : CometChat.CallbackListener<String>() {
                 override fun onSuccess(p0: String?) {
+
+                    // Unregister / Unsubscribe for the user type notifications
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic(
+                        getString(R.string.comet_app_id) + "_" + CometChatConstants.RECEIVER_TYPE_USER + "_" + it.uid )
+
                     // Starting Login screen
                     val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

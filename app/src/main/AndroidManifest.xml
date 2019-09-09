@@ -31,6 +31,16 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
+        <!-- Firebase Messaging -->
+        <service
+            android:name=".fcm.FcmListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

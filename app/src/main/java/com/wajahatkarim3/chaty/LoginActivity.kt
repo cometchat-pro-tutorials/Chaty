@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.cometchat.pro.constants.CometChatConstants
 import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
@@ -13,6 +14,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginActivity : AppCompatActivity()
 {
@@ -66,6 +68,10 @@ class LoginActivity : AppCompatActivity()
 
                 if (user != null)
                 {
+                    // Register for the user type notifications
+                    FirebaseMessaging.getInstance().subscribeToTopic(
+                        getString(R.string.comet_app_id) + "_" + CometChatConstants.RECEIVER_TYPE_USER + "_" + user.uid )
+
                     // Go to Contacts screen
                     var intent = Intent(this@LoginActivity, ContactsActivity::class.java)
                     startActivity(intent)

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuMute"
+        android:title="Mute Notifications"/>
+
+    <item android:id="@+id/menuUnmute"
+        android:title="Unmute Notifications"/>
+</menu>

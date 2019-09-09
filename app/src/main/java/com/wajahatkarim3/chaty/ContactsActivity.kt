@@ -8,9 +8,11 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
@@ -190,6 +192,7 @@ class ContactsActivity : AppCompatActivity() {
             var txtUsername: AppCompatTextView
             var txtStatus: AppCompatTextView
             var imgContactPhoto: AppCompatImageView
+            var imgOptions: AppCompatImageView
             var userItemClickCallback: (() -> Unit)? = null
 
             constructor(itemView: View) : super(itemView)
@@ -197,6 +200,7 @@ class ContactsActivity : AppCompatActivity() {
                 txtUsername = itemView.findViewById(R.id.txtUsername)
                 txtStatus = itemView.findViewById(R.id.txtStatus)
                 imgContactPhoto = itemView.findViewById(R.id.imgContactPhoto)
+                imgOptions = itemView.findViewById(R.id.imgOptions)
 
                 var cardRootLayout = itemView.findViewById<ConstraintLayout>(R.id.cardRootLayout)
                 cardRootLayout.setOnClickListener {
@@ -228,6 +232,51 @@ class ContactsActivity : AppCompatActivity() {
                     txtStatus.setTextColor(context.resources.getColor(R.color.colorOnline))
                 else
                     txtStatus.setTextColor(context.resources.getColor(R.color.colorOffline))
+
+                // Setting Mute option
+                imgOptions.setOnClickListener {
+                    var popupMenu = PopupMenu(this@ContactsActivity, imgOptions)
+                    popupMenu.inflate(R.menu.menu_contact_item)
+
+                    var menu = popupMenu.menu
+                    var prefs = PreferenceManager.getDefaultSharedPreferences(this@ContactsActivity)
+                    if (prefs.getBoolean("mute-${userModel.uid}", false))
+                    {
+                        // Contact already muted. Show Unmute option
+                        menu.findItem(R.id.menuMute).setVisible(false)
+                        menu.findItem(R.id.menuUnmute).setVisible(true)
+                    }
+                    else
+                    {
+                        // Contact not muted. Show Mute option
+                        menu.findItem(R.id.menuMute).setVisible(true)
+                        menu.findItem(R.id.menuUnmute).setVisible(false)
+                    }
+
+                    popupMenu.setOnMenuItemClickListener {
+                        when(it.itemId)
+                        {
+                            R.id.menuMute -> {
+                                // Storing ID in prefs for muting notifications of this contact
+                                var editor = PreferenceManager.getDefaultSharedPreferences(this@ContactsActivity).edit()
+                                editor.putBoolean("mute-${userModel.uid}", true)
+                                editor.commit()
+                                true
+                            }
+
+                            R.id.menuUnmute -> {
+                                // Storing ID in prefs for muting notifications of this contact
+                                var editor = PreferenceManager.getDefaultSharedPreferences(this@ContactsActivity).edit()
+                                editor.putBoolean("mute-${userModel.uid}", false)
+                                editor.commit()
+                                true
+                            }
+                        }
+                        return@setOnMenuItemClickListener false
+                    }
+
+                    popupMenu.show()
+                }
             }
 
             fun setAvatarImage(letter: String)
