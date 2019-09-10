@@ -23,6 +23,13 @@ Chaty is an Android Demo app (using **CometChat Pro**) for a fully functional me
 
 This branch [`push-notifications-finish`](https://github.com/wajahatkarim3/Chaty/tree/push-notifications-finish) is an example demo to send push notifications for chat messages to other users' Android devices. 
 
+### Features of this demo
+This demo showcases the implementation of the push notifications in the Chaty app using CometChat Pro and Firebase Messaging (FCM). This includes:
+* Sending Notifications when app is background or completely removed from the Recent Apps in Android
+* Sending Notifications when user is inside app in Contacts or Profile or any other chat conversation screen
+* Don't send notification when user is already chatting with the sender user and chat is open
+* User can mute / unmute any specific user's notifications at anytime
+
 [![Platform](https://img.shields.io/badge/Platform-Android-brightgreen.svg)](#)      [![Platform](https://img.shields.io/badge/Language-Kotlin-yellowgreen.svg)](#)
 
 ## ScreenShots
