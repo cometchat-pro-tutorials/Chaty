@@ -19,21 +19,14 @@
 </div>
 <br/>
 
-<div align="left"><p><a href="https://www.cometchat.com/tutorials/build-one-on-one-chat-in-your-android-app-using-kotlin/"><img alt="Build One-on-One Android Chat App in Kotlin" align="center" src="https://img.shields.io/badge/%F0%9F%93%84%20-NEW-red.svg" /></a>&nbsp;
-The article on how to build one-on-one Android chat app in Kotlin is now published. You can <a href="https://www.cometchat.com/tutorials/build-one-on-one-chat-in-your-android-app-using-kotlin/">read it on this link here. →</a>.
-</p></div>
-
 Chaty is an Android Demo app (using **CometChat Pro**) for a fully functional messaging app capable of **one-on-one** (private) messaging. The app enables users to send **text** messages to other users in realtime.
 
-This example shows how to build an one-to-one chat with Android using Kotlin.
+This branch [`push-notifications-finish`](https://github.com/wajahatkarim3/Chaty/tree/push-notifications-finish) is an example demo to send push notifications for chat messages to other users' Android devices. 
 
 [![Platform](https://img.shields.io/badge/Platform-Android-brightgreen.svg)](#)      [![Platform](https://img.shields.io/badge/Language-Kotlin-yellowgreen.svg)](#)
 
 ## ScreenShots
-
- <div align="center">
-  <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/LoginScreen.png" width="200px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/ContactsScreen.png" width="200px" /> <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/MessagesScreen.png" width="200px" />  <img src="https://raw.githubusercontent.com/wajahatkarim3/Chaty/master/Screenshots/ProfileScreen.png" width="200px" />
-</div>
+![]()
 
 ## Technology
 This demo uses:
@@ -42,11 +35,12 @@ This demo uses:
 * Android and Kotlin
 * Material Components by Google
 * Glide for Image Loading
+* Firebase Messaging (FCM) for Push Notifications
+* [Notify](https://github.com/Karn/notify) for creating Android notifications
 
 ## Installation
 
-   Simply Clone the project from android-kotlin-chat-app repository and open in Android Studio.
-   Build the Demo App and it will be ready to Run
+   Simply Clone the project from this repository and open in Android Studio. Then follow the below instructions.
    
 
 ## Run the Sample App
@@ -57,8 +51,9 @@ To run the demo follow these steps:
 3. Once created, click **Explore**
 4. Go to the **API Keys** tab and click **Create API Key**
 5. Create an API key called "Android One-To-One Chat Key" with **Full Access**
-4. Download the repository [here](https://github.com/wajahatkarim3/Chaty/archive/master.zip) or by running `git clone https://github.com/wajahatkarim3/Chaty.git` and open it in Android Studio
-5. Update [strings.xml](https://github.com/wajahatkarim3/Chaty/blob/master/app/src/main/res/values/strings.xml) with your newly-created `appID` and `apiKey`
+6. Update [strings.xml](https://github.com/wajahatkarim3/Chaty/blob/push-notifications-finish/app/src/main/res/values/strings.xml) with your newly-created `appID` and `apiKey`
+7. Create a project in [Firebase Console](https://console.firebase.google.com) and add an Android app in it.
+8. Download the `google-services.json` file and copy the file in `app` folder of this project.
 6. Run the app and login with one of the test users: superhero1, superhero2, superhero3, superhero4 or superhero5
 
 Questions about running the demo? [Open an issue](https://github.com/wajahatkarim3/Chaty/issues). We're here to help ✌️
