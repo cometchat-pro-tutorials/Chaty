@@ -26,7 +26,7 @@ This branch [`push-notifications-finish`](https://github.com/wajahatkarim3/Chaty
 [![Platform](https://img.shields.io/badge/Platform-Android-brightgreen.svg)](#)      [![Platform](https://img.shields.io/badge/Language-Kotlin-yellowgreen.svg)](#)
 
 ## ScreenShots
-![]()
+![](https://raw.githubusercontent.com/wajahatkarim3/Chaty/push-notifications-finish/Screenshots/Push%20Notifications%20-%20Demo.gif)
 
 ## Technology
 This demo uses:
