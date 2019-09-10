@@ -27,7 +27,17 @@ class LoginActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        setupViews()
+        if (CometChat.getLoggedInUser() != null)
+        {
+            // Go to Contacts screen
+            var intent = Intent(this@LoginActivity, ContactsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        else
+        {
+            setupViews()
+        }
     }
 
     fun setupViews()

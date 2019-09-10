@@ -38,7 +38,8 @@ class FcmListenerService : FirebaseMessagingService()
                         var textMessage = baseMessage
 
                         var prefs = PreferenceManager.getDefaultSharedPreferences(this@FcmListenerService)
-                        if (prefs.getBoolean("isChatOn-${textMessage.sender.uid}", false) || prefs.getBoolean("mute-${textMessage.sender.uid}", false))
+                        if ( (prefs.getBoolean("isChatOn", false) && prefs.getString("chatUserId", "").equals(textMessage.sender.uid) )
+                            || prefs.getBoolean("mute-${textMessage.sender.uid}", false))
                         {
                             // Don't send the notification as the chat is already active or the contact is muted for notifications
 
@@ -51,6 +52,9 @@ class FcmListenerService : FirebaseMessagingService()
                                 .content {
                                     title = textMessage.sender.name
                                     text = textMessage.text
+                                }
+                                .alerting("high_priority_notification") {
+                                    channelImportance = Notify.IMPORTANCE_HIGH
                                 }
                                 .show(notificationId)
                         }

@@ -46,6 +46,10 @@ class ContactsActivity : AppCompatActivity() {
 
         setupViews()
         loadAllUsers()
+
+        CometChat.getLoggedInUser()?.let {
+            Toast.makeText(this, "Welcome back, ${it.name}", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onPause() {

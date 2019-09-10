@@ -1,6 +1,5 @@
 package com.wajahatkarim3.chaty
 
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -90,9 +89,9 @@ class ChatActivity : AppCompatActivity()
                 }
             })
 
-            // Setting Chat On for notifications
+            // Saving UserId in Preferences
             var editor = PreferenceManager.getDefaultSharedPreferences(this).edit()
-            editor.putBoolean("isChatOn-${it.uid}", true)
+            editor.putString("chatUserId", it.uid)
             editor.commit()
         }
     }
@@ -103,11 +102,6 @@ class ChatActivity : AppCompatActivity()
         user?.let {
             CometChat.removeMessageListener(getUniqueListenerId(it.uid))
             CometChat.removeUserListener(getUniqueListenerId(it.uid))
-
-            // Setting Chat On for notifications
-            var editor = PreferenceManager.getDefaultSharedPreferences(this).edit()
-            editor.putBoolean("isChatOn-${it.uid}", false)
-            editor.commit()
         }
     }
 
