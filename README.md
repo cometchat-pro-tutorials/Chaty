@@ -58,10 +58,16 @@ To run the demo follow these steps:
 3. Once created, click **Explore**
 4. Go to the **API Keys** tab and click **Create API Key**
 5. Create an API key called "Android One-To-One Chat Key" with **Full Access**
-6. Update [strings.xml](https://github.com/wajahatkarim3/Chaty/blob/push-notifications-finish/app/src/main/res/values/strings.xml) with your newly-created `appID` and `apiKey`
-7. Create a project in [Firebase Console](https://console.firebase.google.com) and add an Android app in it.
-8. Download the `google-services.json` file and copy the file in `app` folder of this project.
-6. Run the app and login with one of the test users: superhero1, superhero2, superhero3, superhero4 or superhero5
+6. Clone the Chaty project from the `push-notifications-finish` branch from [this link](https://github.com/wajahatkarim3/Chaty/tree/push-notifications-finish). When you open the project, the gradle sync will fail with an error saying that `google-services.json` file is missing. Don't worry about this and proceed to the next step.
+7. Create a project in [Firebase Console](https://console.firebase.google.com). 
+8. When your Firebase project is ready, add an Android app in it. Add your package name, app name, your system's debug fingerprint SHA1 key. If you don't know how to get the fingerprint SHA1, follow the step 9.
+9. (Optional) - On Android Studio in the right side, click on `Gradle` tab. Then run the `Your Project` -> `Tasks` -> `android` -> `signingReport` task by double clicking on it. This will print your SHA1 key in the `Run` panel in Android Studio. Copy that to the Firebase.
+10. In the next step, Firebase will allow you to download `google-services.json` file. Download that and copy it your Android project in the root directory of the `app` folder.
+12. Open the `app/build.gradle` and change the `applicationId` with the same exact package name used in the Firebase to create Android app in the project.
+11. Update [strings.xml](https://github.com/wajahatkarim3/Chaty/blob/push-notifications-finish/app/src/main/res/values/strings.xml) with your newly-created `appID` and `apiKey`
+12. Press the Gradle Sync / Sync Now button and now it should be successful.
+13. Run the app on two emulators / devices and login on each with one of the test users: `superhero1`, `superhero2`, `superhero3`, `superhero4` or `superhero5`
+14. Try sending messages to each other and see the push notifications.
 
 Questions about running the demo? [Open an issue](https://github.com/wajahatkarim3/Chaty/issues). We're here to help ✌️
 
