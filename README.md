@@ -66,6 +66,8 @@ To run the demo follow these steps:
 12. Open the `app/build.gradle` and change the `applicationId` with the same exact package name used in the Firebase to create Android app in the project.
 11. Update [strings.xml](https://github.com/wajahatkarim3/Chaty/blob/push-notifications-finish/app/src/main/res/values/strings.xml) with your newly-created `appID` and `apiKey`
 12. Press the Gradle Sync / Sync Now button and now it should be successful.
+13. Now, in Firebase Console, open `Project Settings` and then choose `Cloud Messaging` tab. Copy the `Token` field of the `Server Key` row.
+13. In Comet Chat project dashboard, go to `Extensions` and add `Push Notifications` extension. Once added, click on the `Actions` button for the extension, and select `Settings` from drop-down. It will show a popup with the Title and `FCM Server Key`. Put app name as `Title` and paste the copied `FCM Server Key` here from Firebase.
 13. Run the app on two emulators / devices and login on each with one of the test users: `superhero1`, `superhero2`, `superhero3`, `superhero4` or `superhero5`
 14. Try sending messages to each other and see the push notifications.
 
