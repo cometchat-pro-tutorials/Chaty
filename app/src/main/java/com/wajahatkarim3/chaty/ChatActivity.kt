@@ -157,10 +157,9 @@ class ChatActivity : AppCompatActivity()
             user?.let {
                 val receiverID: String = it.uid
                 val messageText = message
-                val messageType = CometChatConstants.MESSAGE_TYPE_TEXT
                 val receiverType = CometChatConstants.RECEIVER_TYPE_USER
 
-                val textMessage = TextMessage(receiverID, messageText, messageType,receiverType)
+                val textMessage = TextMessage(receiverID, messageText,receiverType)
 
                 CometChat.sendMessage(textMessage, object : CometChat.CallbackListener<TextMessage>() {
                     override fun onSuccess(p0: TextMessage?) {
